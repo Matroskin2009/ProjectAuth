@@ -66,4 +66,4 @@ ProjectAuth/
 │   └── static/          # CSS/JS/изображения
 ├── manage.py            # Django CLI
 └── requirements.txt     # Зависимости
-"""
+
