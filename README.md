@@ -56,7 +56,7 @@ python manage.py runserver
 
 Просматривать приглашенных пользователей
 
-## Структура проекта:
+Структура проекта:
 text
 ProjectAuth/    
 ├── myapp/               # Основное приложение
@@ -66,3 +66,4 @@ ProjectAuth/
 │   └── static/          # CSS/JS/изображения
 ├── manage.py            # Django CLI
 └── requirements.txt     # Зависимости
+"""
