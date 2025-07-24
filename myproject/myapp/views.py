@@ -1,4 +1,3 @@
-
 import string
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
@@ -16,43 +15,24 @@ def get_ref():
         if not User.objects.filter(ref_code=ref).exists():
             return ref
 
-def get_key():
+def get_key(request):
     chars = string.digits
     result = []
     for _ in range(4):
         result.append(random.choice(chars))
-    return ''.join(result)
+    print(f'🗝️ Юзер-ключ: {"".join(result)}')
+    return JsonResponse({
+        'status': 'success',
+        'key': ''.join(result)
+    })
 
 def auth_form(request):
     if 'user_id' in request.session:
         return redirect('index')
     return render(request, 'auth.html')
 
-
-def get_user_key(request):
-    try:
-        key = get_key()
-        if key:
-            return JsonResponse({
-                'status': 'success',
-                'key': key,
-            })
-        else:
-            return JsonResponse({
-                'status': 'error',
-                'message': 'Ошибка получение ключа',
-            })
-    except Exception as e:
-        return JsonResponse({
-            'status': 'error',
-            'message': 'Ошибка сервера',
-        })
-
-
 @require_POST
 def unified_auth(request):
-    if request.user.is_authenticated:
-        return JsonResponse({'status': 'success', 'user_id': request.user.id})
 
     try:
         username = request.POST.get('username')
@@ -77,7 +57,7 @@ def unified_auth(request):
             return JsonResponse({'status': 'error', 'message': 'Неверный код'}, status=400)
 
         user = authenticate(username=username, password=password)
-        if user:  # Существующий пользователь
+        if user:
             user.number_phone = number_phone
             user.save(update_fields=['number_phone'])
             login(request, user)

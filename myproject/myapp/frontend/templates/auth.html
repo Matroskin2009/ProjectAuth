@@ -8,8 +8,10 @@
     <link rel="stylesheet" href="{% static 'css/auth.css' %}">
     <title>Космическая авторизация</title>
 </head>
-
-<body data-url-get-key="{% url 'get_user_key' %}" data-url-profile-page="{% url 'profile_page' %}" data-url-unified-auth="{% url 'unified_auth' %}">>
+<script>
+    url = "{% url 'profile_page' %}"
+</script>
+<body data-url-get-key="{% url 'get_key' %}" data-url-profile-page="{% url 'profile_page' %}" data-url-unified-auth="{% url 'unified_auth' %}">
 <a href="#" class="invite-button">Инвайт страница</a>
 
 <div class="moon"></div>
@@ -18,7 +20,9 @@
     <div class="auth-container">
         <form id="auth-form" method="POST">
             {% csrf_token %}
-
+            <div hidden>
+              Profile URL: {% url 'profile_page' %}
+            </div>
             <div class="form-screen active" id="login-screen">
                 <h2>Космический вход</h2>
                 <div id="message" class="messageError" style="color: red;"></div>

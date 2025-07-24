@@ -1,6 +1,8 @@
+
+alert(url)
 document.addEventListener('DOMContentLoaded', function() {
     const url_get_key = document.body.dataset.urlGetKey;
-    const url_ref_page = document.body.dataset.urlRefPage;
+    const url_profile_page = document.body.dataset.urlProfilePage
     const url_unified_auth = document.body.dataset.urlUnifiedAuth;
     const button_back = document.querySelector('.get-back');
     const authButton = document.getElementById('auth-button');
@@ -68,7 +70,8 @@ document.addEventListener('DOMContentLoaded', function() {
     })
     .then(data => {
         if (data.status === 'success') {
-            window.location.href = url_ref_page;
+            alert(url_profile_page)
+            window.location.href = url;
         } else {
             document.getElementById('message-number').textContent = data.message || 'Неверный код';
         }

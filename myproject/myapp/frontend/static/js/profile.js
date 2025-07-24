@@ -28,13 +28,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const messageElement = document.getElementById('invite-message');
     const inviteSection = document.getElementById('activate-invite-section');
 
-    // Проверяем только необходимые элементы
-    if (!activateBtn || !inviteInput || !messageElement || !inviteSection) {
-        console.error('Один из необходимых элементов не найден:',
-            {activateBtn, inviteInput, messageElement, inviteSection});
-        return;
-    }
-
     activateBtn.addEventListener('click', function() {
         const code = inviteInput.value.trim();
         const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
@@ -66,14 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(data => {
             if (data.status === 'success') {
-                messageElement.textContent = data.message;
-                messageElement.style.color = '#4caf50';
-
-                setTimeout(() => {
-                    inviteSection.innerHTML = `
-                        <p>Активированный код: <span id="activated-invite">${code}</span></p>
-                    `;
-                }, 1000);
+                location.reload()
             } else {
                 messageElement.textContent = data.message || 'Произошла ошибка';
                 messageElement.style.color = '#f44336';
