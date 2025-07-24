@@ -1,0 +1,45 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль пользователя</title>
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body data-url-add-inviter="{% url 'add_inviter' %}">
+    <div class="profile-card">
+        <h2>Ваш профиль</h2>
+        <p>Телефон: <span id="phone">{{ phone }}</span></p>
+        <p>Ваш инвайт-код: <strong id="my-invite-code">{{ my_invite_code }}</strong></p>
+
+        {% if inviter %}
+            <p>Вас пригласил: <span id="activated-invite">{{ inviter }}</span></p>
+        {% else %}
+            <div class="invite-section" id="activate-invite-section">
+                <h3>Активировать инвайт-код</h3>
+                <div class="message"></div>
+                <input type="text" id="invite-code-input" placeholder="Введите код">
+                <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+                <button id="activate-invite-btn">Активировать</button>
+                <p id="invite-message" style="color: red;"></p>
+            </div>
+        {% endif %}
+
+        <h3 class="text-invited-users">Приглашенные пользователи</h3>
+        <div class="invited-users">
+            {% if invited_users %}
+                {% for phone in invited_users %}
+                    <div class="invited-user">
+                        <p>Приглашенный номер: {{ phone }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>Вы еще никого не пригласили</p>
+            {% endif %}
+        </div>
+    </div>
+
+<script src="{% static 'js/profile.js' %}"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="{% static 'css/auth.css' %}">
+    <title>Космическая авторизация</title>
+</head>
+
+<body data-url-get-key="{% url 'get_user_key' %}" data-url-profile-page="{% url 'profile_page' %}" data-url-unified-auth="{% url 'unified_auth' %}">>
+<a href="#" class="invite-button">Инвайт страница</a>
+
+<div class="moon"></div>
+
+<div class="centered-container">
+    <div class="auth-container">
+        <form id="auth-form" method="POST">
+            {% csrf_token %}
+
+            <div class="form-screen active" id="login-screen">
+                <h2>Космический вход</h2>
+                <div id="message" class="messageError" style="color: red;"></div>
+                <input type="text" name="username" id="username" placeholder="Имя пользователя" required>
+                <input type="password" name="password" id="password" placeholder="Пароль" required>
+                <input type="text" name="number_phone" id="number-phone" placeholder="Номер телефона" pattern="\d{11}" maxlength="11" required>
+                <button type="button" id="auth-button">Применить</button>
+            </div>
+
+            <div class="form-screen hidden" id="sms-screen">
+                <div id='message-number' class="message"></div>
+                <h2>Подтверждение телефона</h2>
+                На номер телефона поступил смс, введите его (консоль)
+                <input type="number" name="number-key" id="number-phone-check" placeholder="ключ" required>
+                <button type="button" id="check-number-button">Применить</button>
+            </div>
+        </form>
+    </div>
+</div>
+<script src="{% static 'js/auth.js' %}"></script>
+</body>
+</html>
