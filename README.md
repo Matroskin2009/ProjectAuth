@@ -16,7 +16,7 @@
 
 - Python 3.9+
 - Django 3.2
-- SQLite (по умолчанию)
+- MariaDb
 - HTML5/CSS3 (анимации на CSS)
 - JavaScript (базовые AJAX-запросы)
 
